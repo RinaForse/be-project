@@ -7,8 +7,9 @@ import {ProtectedController} from './controllers/ProtectedController';
 import {AdminController} from './controllers/AdminController';
 import {authenticateJWT} from './middlewares/authMiddleware';
 import {authorizeRole} from './middlewares/roleMiddleware';
-import {Role} from './models/User';
 import cors from 'cors';
+import {Role} from "./enums/RoleEnum";
+import {UserController} from "./controllers/UserController";
 
 const app = express();
 
@@ -20,6 +21,10 @@ app.use(bodyParser.json());
 app.use(cookieParser());
 
 app.get('/', OpenController.helloWorld);
+
+app.post('/user/sign-up', UserController.signUpUser);
+app.post('/seller/sign-up', UserController.signUpSeller);
+app.put('/user/forget-password', UserController.forgetPassword);
 
 app.post('/login', AuthController.login);
 app.post('/logout', AuthController.logout);
@@ -33,5 +38,3 @@ const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
 });
-
-export default app;
