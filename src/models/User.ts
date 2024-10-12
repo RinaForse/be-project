@@ -1,4 +1,6 @@
 import {Role} from "../enums/RoleEnum";
+import {hashPassword} from '../utils/hashUtils';
+import {randomUUID} from "node:crypto";
 
 export interface User {
     id: string;
@@ -14,9 +16,6 @@ export interface User {
     updatedDate: Date;
     avatar?: string;
 }
-
-import {hashPassword} from '../utils/hashUtils';
-import {randomUUID} from "node:crypto";
 
 export const users: User[] = [
     {

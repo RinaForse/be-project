@@ -10,6 +10,7 @@ import {authorizeRole} from './middlewares/roleMiddleware';
 import cors from 'cors';
 import {Role} from "./enums/RoleEnum";
 import {UserController} from "./controllers/UserController";
+import {CategoryController} from "./controllers/CategoryController";
 
 const app = express();
 
@@ -28,6 +29,8 @@ app.put('/user/forget-password', UserController.forgetPassword);
 
 app.post('/login', AuthController.login);
 app.post('/logout', AuthController.logout);
+
+app.post('/category', authenticateJWT, authorizeRole(Role.ADMIN), CategoryController.saveCategory);
 
 app.get('/protected', authenticateJWT, ProtectedController.getUserInfo);
 

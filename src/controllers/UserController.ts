@@ -2,25 +2,25 @@ import {Request, Response} from 'express';
 import {users} from '../models/User';
 import {hashPassword} from '../utils/hashUtils';
 import {Role} from "../enums/RoleEnum";
-import {UserCreateDto} from "../dto/UserCreateDto";
+import {UserCreateRequestDto} from "../dto/UserCreateRequestDto";
 import {randomUUID} from "node:crypto";
-import {UserForgetPasswordDto} from "../dto/UserForgetPasswordDto";
+import {UserForgetPasswordRequestDto} from "../dto/UserForgetPasswordRequestDto";
 
 export class UserController {
 
-    static signUpUser(req: Request<UserCreateDto>, res: Response) {
+    static signUpUser(req: Request<UserCreateRequestDto>, res: Response) {
         UserController.createUser(req, res, Role.USER);
 
         res.json({message: 'User created successfully'});
     }
 
-    static signUpSeller(req: Request<UserCreateDto>, res: Response) {
+    static signUpSeller(req: Request<UserCreateRequestDto>, res: Response) {
         UserController.createUser(req, res, Role.SELLER);
 
         res.json({message: 'Seller created successfully'});
     }
 
-    static forgetPassword(req: Request<UserForgetPasswordDto>, res: Response) {
+    static forgetPassword(req: Request<UserForgetPasswordRequestDto>, res: Response) {
         const {username, newPassword, confirmPassword} = req.body;
         const user = users.find(u => u.username === username);
 
@@ -41,8 +41,7 @@ export class UserController {
         res.json({message: 'Reset password link sent successfully'});
     }
 
-    private static createUser(req: Request<UserCreateDto>, res: Response, role: Role) {
-        console.log(req.body);
+    private static createUser(req: Request<UserCreateRequestDto>, res: Response, role: Role) {
         const {username, password, confirmPassword, firstName, lastName, phone, email, address, avatar} = req.body;
 
         if (password !== confirmPassword) {

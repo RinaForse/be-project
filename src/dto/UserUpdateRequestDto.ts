@@ -1,6 +1,6 @@
-export interface UserCreateDto {
-    username: string;
-    password: string;
+export interface UserUpdateRequestDto {
+    oldPassword: string;
+    newPassword: string;
     confirmPassword: string;
     firstName?: string;
     lastName?: string;
