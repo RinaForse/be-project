@@ -69,32 +69,32 @@ app.delete(
 app.post(
   "/product",
   authenticateJWT,
-  authorizeRole(Role.ADMIN),
+  authorizeRole(Role.SELLER),
   ProductController.saveProduct
 );
 app.get(
   "/product/all",
   authenticateJWT,
-  authorizeRole(Role.ADMIN),
+  authorizeRole(Role.SELLER),
   ProductController.getAllProducts
 );
 
 app.get(
   "/product/:name",
   authenticateJWT,
-  authorizeRole(Role.ADMIN),
+  authorizeRole(Role.SELLER),
   ProductController.getProduct
 ),
   app.put(
     "/product/update/:name",
     authenticateJWT,
-    authorizeRole(Role.ADMIN),
+    authorizeRole(Role.SELLER),
     ProductController.updateProduct
   ),
   app.delete(
     "/product/delete/:name",
     authenticateJWT,
-    authorizeRole(Role.ADMIN),
+    authorizeRole(Role.SELLER),
     ProductController.deleteProduct
   );
 
